@@ -1,0 +1,48 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+  strategy: free
+  tasks:
+    - name: hack to resolve Problem with MergeList Issue
+      shell: 'find /var/lib/apt/lists -maxdepth 1 -type f -exec rm -v {} \;'
+
+    - name: update apt cache directly (apt module not reliable)
+      shell: 'apt-get clean && apt-get update'
+
+    - name: Preliminary installation
+      apt: name=apt-transport-https force=yes
+
+    - name: Add the Google signing key
+      apt_key: url=https://packages.cloud.google.com/apt/doc/apt-key.gpg state=present
+
+    - name: Add the k8s APT repo
+      apt_repository: repo='deb http://apt.kubernetes.io/ kubernetes-xenial main' state=present
+
+    - name: update apt cache directly (apt module not reliable)
+      shell: 'apt-get update'
+
+    - name: Install packages
+      apt: name={{ item }} state=installed force=yes
+      with_items: "{{ PACKAGES }}"
+
+    - name: Add the longsleep repo for recent golang version
+      apt_repository: repo='ppa:longsleep/golang-backports' state=present
+
+    - name: update apt cache directly (apt module not reliable)
+      shell: 'apt-get update'
+      args:
+        warn: False
+
+    - name: Install Go
+      apt: name=golang-go state=present force=yes
+
+    - name: Install crictl
+      shell: 'go get github.com/kubernetes-incubator/cri-tools/cmd/crictl'
+      become_user: vagrant
+
+    - name: Create Symbolic link in /usr/local/bin for crictl
+      file:
+        src: /home/vagrant/go/bin/crictl
+        dest: /usr/local/bin/crictl
