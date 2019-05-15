@@ -10,7 +10,9 @@
 
 #####  3. Ansible
 ansible 설치 머신에서 해야할 작업
+
 apt-get 통해서 sshpass 설치
+
 /etc/ansible/.ansible.cfg 아래에 아래 내용 추가
 
 ```
