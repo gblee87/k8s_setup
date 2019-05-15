@@ -2,4 +2,4 @@
 192.168.77.10 ansible_user=vagrant ansible_ssh_pass=vagrant
 192.168.77.11 ansible_user=vagrant ansible_ssh_pass=vagrant
 192.168.77.12 ansible_user=vagrant ansible_ssh_pass=vagrant
-192.168.77.13 ansible_user=vagrant ansible_ssh_pass=vagrants
+192.168.77.13 ansible_user=vagrant ansible_ssh_pass=vagrant
