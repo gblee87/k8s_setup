@@ -18,4 +18,8 @@ echo "########## make current user as k8s user"
 #echo `hostname` > sudo /etc/hostname
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u)$(id -g) $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+echo "########## set iptables ##########"
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
