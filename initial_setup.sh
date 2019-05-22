@@ -1,11 +1,14 @@
 #!/bin/bash
-#sudo apt-get update && sudo apt-get install -y sshpass;
-#sudo apt-get install -y ansible;
-#sudo cat>~/.ansible.cfg<<EOF
-#[defaults]
-#host_key_checking = False
-#EOF
+echo "########## install ansible and sshpass and configure ssh host key check to False##########"
+sudo apt-get update && sudo apt-get install -y sshpass;
+sudo apt-get install -y ansible;
+sudo cat>~/.ansible.cfg<<EOF
+[defaults]
+host_key_checking = False
+EOF
 
+echo "########## update worker and master by ansible ###########"
 cd ./ansible
+ansible-playbook -i hosts playbook.yml
 
-ansible-playbook -i ./ansible/hosts ./ansible/playbook.yml
+echo "########## install kubeadm ##########"
