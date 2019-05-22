@@ -15,7 +15,7 @@ echo "########## install kubeadm ##########"
 sudo kubeadm init --apiserver-advertise-address 192.168.77.10
 
 echo "########## make current user as k8s user"
-echo `hostname` > sudo /etc/hostname
+#echo `hostname` > sudo /etc/hostname
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u)$(id -g) $HOME/.kube/config

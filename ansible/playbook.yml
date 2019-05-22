@@ -51,5 +51,8 @@
     - name: set hostname properly
       shell: "hostname n$((1 + $(ifconfig | grep 192.168 | awk '{print $2}' | tail -c 2)))"
 
+    - name: change etc/hostname file
+      shell: "echo `hostname` > sudo /etc/hostname"
+
     - name: Turn off swap
       shell: 'swapoff -a'
