@@ -12,3 +12,4 @@ cd ./ansible
 ansible-playbook -i hosts playbook.yml
 
 echo "########## install kubeadm ##########"
+sudo kubeadm init --apiserver-advertise-address 192.168.77.10
